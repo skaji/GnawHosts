@@ -1,0 +1,26 @@
+{
+    "name": "Gnaw Hosts",
+    "description": "",
+    "icons": {
+        "16": "icon/icon_16.png",
+        "48": "icon/icon_48.png",
+        "128": "icon/icon_128.png"
+    },
+    "version": "1.0.0",
+    "permissions": [
+        "proxy",
+        "contextMenus",
+        "http://*/*",
+        "https://*/*"
+    ],
+    "app": {
+        "launch": {
+            "local_path": "set.html"
+        }
+    },
+    "background": {
+        "scripts": ["js/background.js"]
+    },
+    "manifest_version": 2
+}
+
