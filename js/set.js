@@ -4,7 +4,7 @@ $(document).ready(function () {
         $('#domain').val(vars['domain']);
     }
 
-	var proxy = localStorage['proxy'];
+    var proxy = localStorage['proxy'];
     $('#proxy').val(proxy);
 
     $('#set').click(function () {
@@ -12,7 +12,7 @@ $(document).ready(function () {
 
         localStorage['proxy'] = proxy;
 
-		var pac = hosts2pac(proxy);
+        var pac = hosts2pac(proxy);
 
         var config = {
             mode: "pac_script",
@@ -30,25 +30,25 @@ $(document).ready(function () {
 });
 
 function hosts2pac(hosts) {
-	hosts = hosts.replace("\r\n", "\n");
+    hosts = hosts.replace("\r\n", "\n");
 
-	var pac;
-	pac = 'function FindProxyForURL(url, host) {' + "\n";
+    var pac;
+    pac = 'function FindProxyForURL(url, host) {' + "\n";
 
-	var lines = hosts.split("\n");
-	lines.forEach(function(line){
-		line = line.replace(/#.*/, '');
+    var lines = hosts.split("\n");
+    lines.forEach(function(line){
+        line = line.replace(/#.*/, '');
 
-		var arr = line.split(/[\s\t]+/);
-		if (arr.length >= 2) {
-			pac += '    if (host == "' + arr[1] + '")' + "\n";
-			pac += '        return "PROXY ' + arr[0] + '";' + "\n";
-		}
-	});
+        var arr = line.split(/[\s\t]+/);
+        if (arr.length >= 2) {
+            pac += '    if (host == "' + arr[1] + '")' + "\n";
+            pac += '        return "PROXY ' + arr[0] + '";' + "\n";
+        }
+    });
 
-	pac += '    return "DIRECT";' + "\n";
-	pac += '}';
+    pac += '    return "DIRECT";' + "\n";
+    pac += '}';
 
-	return pac;
+    return pac;
 }
 
