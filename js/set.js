@@ -5,20 +5,19 @@ $(document).ready(function () {
     }
 
 	var proxy = localStorage['proxy'];
-	if (proxy == undefined) {
-		proxy = 'function FindProxyForURL(url, host) {' + "\n"
-			+ '    return "DIRECT";' + "\n"
-			+ '}' + "\n";
-	}
     $('#proxy').val(proxy);
 
     $('#set').click(function () {
         var proxy = $('#proxy').val();
 
+        localStorage['proxy'] = proxy;
+
+		var pac = hosts2pac(proxy);
+
         var config = {
             mode: "pac_script",
             pacScript: {
-                data: proxy
+                data: pac
             }
         };
         chrome.proxy.settings.set({
@@ -26,9 +25,30 @@ $(document).ready(function () {
             scope: 'regular'
         }, function() {});
 
-        localStorage['proxy'] = proxy;
-
         alert('OK');
     });
 });
+
+function hosts2pac(hosts) {
+	hosts = hosts.replace("\r\n", "\n");
+
+	var pac;
+	pac = 'function FindProxyForURL(url, host) {' + "\n";
+
+	var lines = hosts.split("\n");
+	lines.forEach(function(line){
+		line = line.replace(/#.*/, '');
+
+		var arr = line.split(/[\s\t]+/);
+		if (arr.length >= 2) {
+			pac += '    if (host == "' + arr[1] + '")' + "\n";
+			pac += '        return "PROXY ' + arr[0] + '";' + "\n";
+		}
+	});
+
+	pac += '    return "DIRECT";' + "\n";
+	pac += '}';
+
+	return pac;
+}
 
