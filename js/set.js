@@ -41,13 +41,18 @@ function hosts2pac(hosts) {
 
         var arr = line.split(/[\s\t]+/);
         if (arr.length >= 2) {
-            pac += '    if (host == "' + arr[1] + '")' + "\n";
+            if (arr[1].substr(0, 1) == '.')
+                pac += '    if (dnsDomainIs(host, "' + arr[1] + '"))' + "\n";
+            else
+                pac += '    if (host == "' + arr[1] + '")' + "\n";
             pac += '        return "PROXY ' + arr[0] + '";' + "\n";
         }
     });
 
     pac += '    return "DIRECT";' + "\n";
     pac += '}';
+
+    console.log(pac);
 
     return pac;
 }
