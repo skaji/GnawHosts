@@ -40,13 +40,21 @@ function hosts2pac(hosts) {
         line = line.replace(/#.*/, '');
 
         var arr = line.split(/[\s\t]+/);
-        if (arr.length >= 2) {
-            if (arr[1].substr(0, 1) == '.')
-                pac += '    if (dnsDomainIs(host, "' + arr[1] + '"))' + "\n";
+
+        if (arr.length < 2)
+            return;
+
+        var cond = '';
+        for (var i = 1; i < arr.length; i++) {
+            if (i > 1)
+                cond += ' || ';
+            if (arr[i].substr(0, 1) == '.')
+                cond += 'dnsDomainIs(host, "' + arr[i] + '")';
             else
-                pac += '    if (host == "' + arr[1] + '")' + "\n";
-            pac += '        return "PROXY ' + arr[0] + '";' + "\n";
+                cond += 'host == "' + arr[i] + '"';
         }
+        pac += '    if (' + cond + ') ' + "\n";
+        pac += '        return "PROXY ' + arr[0] + '";' + "\n";
     });
 
     pac += '    return "DIRECT";' + "\n";
