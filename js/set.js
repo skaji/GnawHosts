@@ -5,10 +5,10 @@ $(document).ready(function () {
     }
 
     var proxy = localStorage['proxy'];
-    $('#proxy').val(proxy);
+    myCodeMirror.setValue(proxy);
 
     $('#set').click(function () {
-        var proxy = $('#proxy').val();
+        var proxy = myCodeMirror.getValue();
 
         localStorage['proxy'] = proxy;
 
@@ -26,11 +26,6 @@ $(document).ready(function () {
         }, function() {});
 
         alert('OK');
-    });
-    CodeMirror.fromTextArea(document.getElementById("proxy"), {
-        lineNumbers: true,
-        smartIndent: false,
-        electricChars: false
     });
 });
 
