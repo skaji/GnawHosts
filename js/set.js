@@ -27,6 +27,11 @@ $(document).ready(function () {
 
         alert('OK');
     });
+    CodeMirror.fromTextArea(document.getElementById("proxy"), {
+        lineNumbers: true,
+        smartIndent: false,
+        electricChars: false
+    });
 });
 
 function hosts2pac(hosts) {
