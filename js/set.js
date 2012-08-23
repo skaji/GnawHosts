@@ -5,10 +5,10 @@ $(document).ready(function () {
     }
 
     var proxy = localStorage['proxy'];
-    myCodeMirror.setValue(proxy);
+    $('#proxy').val(proxy);
 
     $('#set').click(function () {
-        var proxy = myCodeMirror.getValue();
+        var proxy = $('#proxy').val();
 
         localStorage['proxy'] = proxy;
 
