@@ -48,22 +48,24 @@ function hosts2pac(hosts) {
         line = line.replace(/#.*/, '');
         line = line.replace(/\s+$/, '');
 
-        var arr = line.split(/[\s]+/);
-        if (arr.length >= 2) {
-            pac += '    if (';
-            var conditions = [];
-            for (var i = 1; i < arr.length; i += 1) {
-                if (arr[i].substr(0, 1) == '.') {
-                    conditions.push('dnsDomainIs(host, "' + arr[i] + '")');
-                }
-                else {
-                    conditions.push('host == "' + arr[i] + '"');
-                }
-            }
-            pac += conditions.join(' || ');
-            pac += ")\n";
-            pac += '        return "PROXY ' + arr[0] + '";' + "\n";
+        var arr = line.split(/\s+/);
+        if (arr.length < 2) {
+            return;
         }
+
+        pac += '    if (';
+        var conditions = [];
+        for (var i = 1; i < arr.length; i += 1) {
+            if (arr[i].substr(0, 1) == '.') {
+                conditions.push('dnsDomainIs(host, "' + arr[i] + '")');
+            }
+            else {
+                conditions.push('host == "' + arr[i] + '"');
+            }
+        }
+        pac += conditions.join(' || ');
+        pac += ")\n";
+        pac += '        return "PROXY ' + arr[0] + '";' + "\n";
     });
 
     pac += '    return "DIRECT";' + "\n";
