@@ -1,6 +1,6 @@
 {
     "name": "Gnaw Hosts",
-    "description": "",
+    "description": "Set proxy. You can use this app like hosts file.",
     "icons": {
         "16": "icon/icon_16.png",
         "48": "icon/icon_48.png",
@@ -9,7 +9,6 @@
     "version": "1.0.0",
     "permissions": [
         "proxy",
-        "contextMenus",
         "http://*/*",
         "https://*/*"
     ],
@@ -17,9 +16,6 @@
         "launch": {
             "local_path": "set.html"
         }
-    },
-    "background": {
-        "scripts": ["js/background.js"]
     },
     "manifest_version": 2
 }

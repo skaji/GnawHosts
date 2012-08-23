@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/main.css">
   <script src="js/jquery-1.7.2.min.js"></script>
-  <script src="js/common.js"></script>
   <script src="js/set.js"></script>
   <script src="js/bootstrap-collapse.js"></script>
 </head>
@@ -32,9 +31,17 @@
 
   <div class="container-fluid">
     <div class="row-fluid">
-      <h2>Set Proxy</h2>
-      <p>Input &quot;ipaddr hostname&quot; lists.<br>
-      ex.) 127.0.0.1:8000 www.example.com
+      <h2>Mapping</h2>
+      <p>Input &quot;destination source(s)&quot; lists like hosts file.
+      For example,
+      <ul>
+          <li>127.0.0.1:8000&nbsp;&nbsp;&nbsp;
+          www.example.com&nbsp;&nbsp;&nbsp;
+          # comment</li>
+          <li>example.co.jp&nbsp;&nbsp;&nbsp;
+          192.168.0.2&nbsp;&nbsp;&nbsp;
+          .example.com</li>
+      </ul>
       </p>
     </div>
 
@@ -51,7 +58,6 @@
     </div>
   </div>
 
-  <input type="hidden" id="domain">
 
 </body>
 </html>
